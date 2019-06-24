@@ -7,9 +7,6 @@ import {
   import Component from 'react-dom'
   import React from 'react'
   import PropTypes from 'prop-types';
-
-
-  
   
   class SignupForm extends React.Component {
     constructor(props) {
@@ -18,12 +15,15 @@ import {
         this.state = {
             user: {
                 username: '',
-                password: ''
+                password: '',
+                error: {},
+                isLoading: false
             },
         };
     }
 
     render() {
+        // const { error } = this.state;
       return (
         <Container className="SignUp">
           <h2>Sign Up</h2>
@@ -39,6 +39,7 @@ import {
                   value={this.state.username} 
                   onChange={this.handleChange} required
                 />
+                {/* {error.username && <span className="help-block">{error.username}</span>} */}
               </FormGroup>
             </Col>
             <Col>
@@ -54,7 +55,7 @@ import {
                 />
               </FormGroup>
             </Col>
-            <Button>Submit</Button>
+            <Button disabled={this.state.isLoading}>Submit</Button>
           </Form>
         </Container>
       );
@@ -73,12 +74,16 @@ import {
     
       handleSubmit = e => {
         e.preventDefault();
-        this.props.userSignupRequest(this.state)
+        this.props
+            .SignUp(this.state)
+            .then(()=>{
+                this.props.history.push("https://www.google.com/")
+            })
       };
   }
 
   SignupForm.propTypes = {
-    userSignupRequest: PropTypes.func.isRequired
+    SignUp: PropTypes.func.isRequired
 }
 
 export default SignupForm
