@@ -4,6 +4,8 @@ import {
     Button,
   } from 'reactstrap';
 
+  import './SignUp.css'
+
   import Component from 'react-dom'
   import React from 'react'
   import PropTypes from 'prop-types';
