@@ -4,33 +4,53 @@ import {
     Button,
   } from 'reactstrap';
 
+  import Component from 'react-dom'
+  import React from 'react'
+  import PropTypes from 'prop-types';
+
+
   
   
-  class SignUp extends Component {
+  class SignupForm extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            user: {
+                username: '',
+                password: ''
+            },
+        };
+    }
+
     render() {
       return (
         <Container className="SignUp">
           <h2>Sign Up</h2>
-          <Form className="form">
+          <Form className="form" onSubmit={this.handleSubmit}>
           <Col>
               <FormGroup>
-                <Label>Name</Label>
+                <Label>Username</Label>
                 <Input
-                  type="email"
-                  name="email"
-                  id="exampleEmail"
-                  placeholder="myemail@email.com"
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="username"
+                  value={this.state.username} 
+                  onChange={this.handleChange} required
                 />
               </FormGroup>
             </Col>
             <Col>
               <FormGroup>
-                <Label for="examplePassword">Password</Label>
+                <Label>Password</Label>
                 <Input
                   type="password"
                   name="password"
-                  id="examplePassword"
+                  id="password"
                   placeholder="********"
+                  value={this.state.username} 
+                  onChange={this.handleChange} required
                 />
               </FormGroup>
             </Col>
@@ -39,6 +59,26 @@ import {
         </Container>
       );
     }
+    
+      handleChanges = e => {
+        e.preventDefault();
+        const { user } = this.state;
+        this.setState({
+           user:{
+            ...user,
+            [e.target.name]: e.target.value
+            }
+        });
+      };
+    
+      handleSubmit = e => {
+        e.preventDefault();
+        this.props.userSignupRequest(this.state)
+      };
   }
-  
-  export default SignUp;
+
+  SignupForm.propTypes = {
+    userSignupRequest: PropTypes.func.isRequired
+}
+
+export default SignupForm
