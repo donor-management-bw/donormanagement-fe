@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route } from "react-router-dom";
+
+import ProtectedRoute from "./components/ProtectedRoute"
+
+import SignupPage from './components/SignUpPage'
+import DonationsPage from './components/DonationsPage'
+
+
+
+import "./App.css";
+import AddDonorPage from "./components/AddDonorPage";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ProtectedRoute path="/donationform" component={AddDonorPage} />
+      <Route path="/signup" component={SignupPage} />
+      <Route exact path="/" component={DonationsPage} />  
+      {/* <PrivateRoute path="/" component={} />  */}
     </div>
   );
 }

@@ -1,16 +1,28 @@
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import axios from 'axios'
+export const ADD_USER = "ADD_USER";
+export const ADD_USER_FAILURE = "ADD_USER_FAILURE";
 
-export const LOGIN_START = 'LOGIN_START';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const login = creds => dispatch => {
-  dispatch({ type: LOGIN_START });
-  return axiosWithAuth()
-    .post('/login', creds)
+export const addUser = newUser => dispatch => {
+    axios
+      .post("https://donor-manage-bw.herokuapp.com/api/user/new", newUser)
+      .then(res => {
+        dispatch({ type: ADD_USER, payload: res.data });
+      })
+      .catch(err => {
+        dispatch({ type: ADD_USER_FAILURE, payload: err.response });
+      });
+  };
+
+export const ADD_DONOR = "ADD_DONOR";
+export const ADD_DONOR_FAILURE = "ADD_DONOR_FAILURE";
+  
+export const addDonor = newDonor => dispatch => {
+  axios
+    .post("https://donor-manage-bw.herokuapp.com/api/donor/add", newDonor)
     .then(res => {
-      localStorage.setItem('token', res.data.payload);
-      dispatch({ type: LOGIN_SUCCESS });
-      return true;
+      dispatch({ type: ADD_DONOR, payload: res.data });
     })
-    .catch(err => console.log(err.response));
+    .catch(err => {
+      dispatch({ type: ADD_DONOR_FAILURE, payload: err.response });
+    });
 };
