@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { login } from '../actions/index';
 import Loader from 'react-loader-spinner';
 
+import './Login.css';
+
 // Reactstrap components
 import { Div, Form, Button, Input } from 'reactstrap';
 
@@ -22,28 +24,33 @@ class Login extends React.Component {
         });
       };
     
-    login = () => {
-        this.props.login(this.state.credentials);
+    login = (e) => {
+      e.preventDefault();
+      let credentials = `grant_type=password&username=${this.state.credentials.username}&password=${this.state.credentials.password}`;      
+        this.props.login(credentials).then(res => {
+          console.log(res)
+        });
     }
 
     render() {
         return (
-            <Div className='login-main'>
+            <div className='login-main'>
                 <Form className='form-login' onSubmit={this.login}>
                 <Input className='input-username'
+                    placeholder='username...'                    
                     type="text"
                     name="username"
                     value={this.state.credentials.username}
                     onChange={this.handleChange}
                 />
                 <Input className='input-password'
-                    backColor='#FFFFFF'
+                    placeholder='password...'                    
                     type="password"
                     name="password"
                     value={this.state.credentials.password}
                     onChange={this.handleChange}
                 />
-                <Button backColor='#FFFFFF'>
+                <Button className='login-button'>
                     {this.props.loggingIn ? (
                     <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
                     ) : (
@@ -51,7 +58,7 @@ class Login extends React.Component {
                     )}
                 </Button>
                 </Form>
-            </Div>
+            </div>
         )
     }
 }
