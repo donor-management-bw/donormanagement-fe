@@ -10,18 +10,18 @@ import {
   import React from 'react'
   import PropTypes from 'prop-types';
   import axios from 'axios'
+  import { connect } from "react-redux";
+  import { addUser } from '../actions/index'
   
   class SignupForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            user: {
                 username: '',
                 password: '',
                 error: {},
                 isLoading: false
-            },
         };
     }
 
@@ -54,7 +54,7 @@ import {
                   name="password"
                   id="password"
                   placeholder="********"
-                  value={this.state.username} 
+                  value={this.state.password} 
                   onChange={this.handleChange} required
                 />
 
@@ -70,50 +70,36 @@ import {
 
     }
     
-      handleChanges = e => {
+      handleChange = e => {
         e.preventDefault();
-
-        const { user } = this.state;
-
         this.setState({
-           user:{
-            ...user,
             [e.target.name]: e.target.value
-            }
-
         });
 
       };
 
       handleSubmit = e => {
-
-        axios
-         .post('https://donor-manage-bw.herokuapp.com/api/user/new', `grant_type=password&username=${this.state.username}&password=${this.state.password}`, {
-
-            headers: {
-      
-              // btoa is converting our client id/client secret into base64
-              Authorization: `Basic ${btoa('lambda-client:lambda-secret')}`,
-              'Content-Type': 'application/x-www-form-urlencoded'
-      
-            }
-      
-          })
-          .then(res => {
-            console.log('sent', res)
-            localStorage.setItem('token', res.data.access_token);
-            this.props.history.push('/login');
-    
-          })
-          .catch(err => console.dir(err));
-    
         e.preventDefault();
+        const newUser = {
+         username: this.state.username,
+         password: this.state.password,
+        };
+        console.log(newUser)
+        this.props.addUser(newUser)
     
       }
   }
 
   SignupForm.propTypes = {
-    SignUp: PropTypes.func.isRequired
+    addUser: PropTypes.func.isRequired
 }
+const mapStateToProps = state => ({
+  users: state.users,
+});
 
-export default SignupForm
+export default connect(
+  mapStateToProps,
+  {
+    addUser
+  }
+)(SignupForm);
