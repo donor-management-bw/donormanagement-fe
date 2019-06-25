@@ -1,39 +1,30 @@
 import {
-    LOGIN_START,
-    LOGIN_SUCCESS,
-    LOGIN_FAILURE
-  } from '../actions';
+    ADD_USER,
+    ADD_USER_FAILURE
+  } from "../actions/index";
   
   const initialState = {
-    error: '',
-    fetchingData: false,
-    loggingIn: false,
-    donors: []
+    users: [],
+    signingUp: false,
+    error: null,
+    loading: true,
+    token: localStorage.getItem("token")
   };
-
-  const reducer = (state = initialState, action) => {
+  export const reducer = (state = initialState, action) => {
     switch (action.type) {
-      case LOGIN_START:
-        return {
-          ...state,
-          error: '',
-          loggingIn: true
-        };
-      case LOGIN_SUCCESS:
-        return {
-          ...state,
-          loggingIn: false,
-          error: ''
-        };
-      case LOGIN_FAILURE:
-        return {
-          ...state,
-          loggingIn: false,
-          error: action.payload
-        };
+        case ADD_USER:
+            return {
+              ...state,
+              users: action.payload
+            };
+        case ADD_USER_FAILURE:
+            return {
+              ...state,
+              error: action.payload
+            };
         default:
             return state;
     }
-}
-
-export default reducer;
+  };
+  
+  export default reducer;

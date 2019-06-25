@@ -1,24 +1,24 @@
-import React from 'react';
-import Navigation from './components/Navigation';
-import './App.css';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
-import Login from './components/Login';
+import React from "react";
+import { Route } from "react-router-dom";
+
+import ProtectedRoute from "./components/ProtectedRoute"
+
+import SignupPage from './components/SignUpPage'
+import DonationsPage from './components/DonationsPage'
+
+
+
+import "./App.css";
+import AddDonorPage from "./components/AddDonorPage";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Navigation />
-          {/* <Link to="/login">Login</Link>
-          <Link to="/protected">Protected Page</Link> */}
-          <div className='header-div'>
-          <h1>Welcome sign In!</h1>
-          </div>
-          <Route path="/login" component={Login} />
-        {/* <PrivateRoute exact path="/protected" component={} /> */}
-      </div>
-    </Router>
+    <div className="App">
+      <ProtectedRoute path="/donationform" component={AddDonorPage} />
+      <Route path="/signup" component={SignupPage} />
+      <Route exact path="/" component={DonationsPage} />  
+      {/* <PrivateRoute path="/" component={} />  */}
+    </div>
   );
 }
 
