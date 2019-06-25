@@ -1,12 +1,14 @@
 import axios from 'axios';
 
 export const axiosWithAuth = () => {
-  const token = axios.get('https://donor-manage-bw.herokuapp.com/oauth/token', credentials);
-
+  
+  const token = localStorage.getItem('token');
+  
   return axios.create({
     headers: {
-      Authorization: token
+      Authorization: `Bearer ${token}`
     },
-    baseURL: 'https://donor-manage-bw.herokuapp.com/' 
+    baseURL: 'https://donor-manage-bw.herokuapp.com'
   });
 };
+
