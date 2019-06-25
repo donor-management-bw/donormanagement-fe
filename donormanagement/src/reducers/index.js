@@ -1,7 +1,7 @@
 import {
     ADD_USER,
     ADD_USER_FAILURE
-  } from "../actions/actions";
+  } from "../actions/index";
   
   const initialState = {
     users: [],
@@ -17,11 +17,13 @@ import {
               ...state,
               users: action.payload
             };
-          case ADD_USER_FAILURE:
+        case ADD_USER_FAILURE:
             return {
               ...state,
               error: action.payload
             };
+        default:
+            return state;
     }
   };
   
