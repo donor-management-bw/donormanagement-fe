@@ -1,19 +1,23 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import SignupPage from './components/SignUpPage'
+import ProtectedRoute from "./components/ProtectedRoute"
 
-// import PrivateRoute from "./components/PrivateRoute";
+import SignupPage from './components/SignUpPage'
+import DonationsPage from './components/DonationsPage'
+
+
 
 import "./App.css";
+import AddDonorPage from "./components/AddDonorPage";
 
 function App() {
   return (
     <div className="App">
-      {/* <Route path="/login" component={Login} /> */}
+      <ProtectedRoute path="/donationform" component={AddDonorPage} />
       <Route path="/signup" component={SignupPage} />
-      {/* <PrivateRoute exact path="/" component={} />
-      <PrivateRoute path="/" component={} /> */}
+      <Route exact path="/" component={DonationsPage} />  
+      {/* <PrivateRoute path="/" component={} />  */}
     </div>
   );
 }
