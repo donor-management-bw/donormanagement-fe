@@ -9,6 +9,7 @@ import {
   import Component from 'react-dom'
   import React from 'react'
   import PropTypes from 'prop-types';
+  import axios from 'axios'
   
   class SignupForm extends React.Component {
     constructor(props) {
@@ -47,6 +48,7 @@ import {
             <Col>
               <FormGroup>
                 <Label>Password</Label>
+
                 <Input
                   type="password"
                   name="password"
@@ -55,33 +57,59 @@ import {
                   value={this.state.username} 
                   onChange={this.handleChange} required
                 />
+
               </FormGroup>
             </Col>
+
             <Button disabled={this.state.isLoading}>Submit</Button>
+
           </Form>
         </Container>
+
       );
+
     }
     
       handleChanges = e => {
         e.preventDefault();
+
         const { user } = this.state;
+
         this.setState({
            user:{
             ...user,
             [e.target.name]: e.target.value
             }
+
         });
+
       };
-    
+
       handleSubmit = e => {
+
+        axios
+         .post('https://donor-manage-bw.herokuapp.com/api/user/new', `grant_type=password&username=${this.state.username}&password=${this.state.password}`, {
+
+            headers: {
+      
+              // btoa is converting our client id/client secret into base64
+              Authorization: `Basic ${btoa('lambda-client:lambda-secret')}`,
+              'Content-Type': 'application/x-www-form-urlencoded'
+      
+            }
+      
+          })
+          .then(res => {
+            console.log('sent', res)
+            localStorage.setItem('token', res.data.access_token);
+            this.props.history.push('/login');
+    
+          })
+          .catch(err => console.dir(err));
+    
         e.preventDefault();
-        this.props
-            .SignUp(this.state)
-            .then(()=>{
-                this.props.history.push("https://www.google.com/")
-            })
-      };
+    
+      }
   }
 
   SignupForm.propTypes = {

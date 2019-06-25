@@ -4,7 +4,7 @@ export const ADD_USER_FAILURE = "ADD_USER_FAILURE";
 
 export const SignUp = userData => dispatch => {
     axios
-      .post("http://localhost:5000/api/users", userData, {
+      .post("https://donor-manage-bw.herokuapp.com/users/user", userData, {
         headers: { Authorization: localStorage.getItem("token") }
       })
       .then(res => {
