@@ -6,8 +6,13 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink
+    NavLink,
+    UncontrolledCollapse,
+    Card,
+    CardBody
 } from 'reactstrap';
+
+import './DonationsPage.css'
 
 class DonationsPage extends React.Component {
     render() {       
@@ -24,14 +29,23 @@ class DonationsPage extends React.Component {
                           <NavLink href="/login">Login</NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink href="#">Link to Webpage</NavLink>
+                          <NavLink href="#">Add Donor</NavLink>
                         </NavItem>
                       </Nav>
                     </Navbar>
                 </div>
-                <div className="donors" >
-                  <h3>DONORS</h3>
-                  <Button size="sm">Edit Donor</Button>
+                <div className="donors">
+                <Button color="primary" id="toggler" style={{ margin: '1rem' }}>
+                    Donors Name
+                </Button>
+                <UncontrolledCollapse toggler="#toggler">
+                    <Card>
+                        <CardBody>
+                            donors creds
+                        </CardBody>
+                    </Card>
+                </UncontrolledCollapse>
+                <Button size="sm">Edit Donor</Button>                  
                 </div>
             </div>
         )
