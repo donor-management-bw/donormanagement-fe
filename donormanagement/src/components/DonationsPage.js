@@ -9,19 +9,29 @@ import {
     NavLink,
     UncontrolledCollapse,
     Card,
-    CardBody
+    CardBody,
+    Collapse,
+    InputGroup,
+    InputGroupAddon,
+    Input
 } from 'reactstrap';
 
 import './DonationsPage.css'
 import { fetchDonors } from "../actions/index"
+import { Transition } from 'react-transition-group';
+import PropTypes from 'prop-types'
+import DonorCard from './DonorCard';
 
 
 class DonationsPage extends React.Component {
-  state = {
-    name: '',
-    address: '',
-    email: '',
-    donations: []
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      address: '',
+      email: '',
+      donations: [],
+    }
   }
     render() {       
         return (
@@ -43,22 +53,9 @@ class DonationsPage extends React.Component {
                     </Navbar>
                 </div>
                 {this.props.donors.map(donor => (
-                <div className="card">
-                  <Button color="primary" id="toggler" style={{ margin: '1rem' }}>
-                  <h1>{donor.dname}</h1>
-                  </Button>
-                  <UncontrolledCollapse toggler="#toggler">
-                      <Card>
-                          <CardBody>
-                          <h1>{donor.dname}</h1>
-                          <h3>{donor.demail}</h3>
-                          <h3>{donor.daddress}</h3>
-                          <h3>{donor.ddonations}</h3>
-                          </CardBody>
-                      </Card>
-                  </UncontrolledCollapse>
-                  <Button size="sm">Edit Donor</Button>
-                </div>
+                 <DonorCard toggle={this.toggle}
+                            donor={donor}
+                            collapse={this.state.collapse}/>
                 ))}
             </div>
         )
@@ -67,6 +64,20 @@ class DonationsPage extends React.Component {
       this.props.fetchDonors();
     }
 }
+
+Collapse.propTypes = {
+  ...Transition.propTypes,
+  isOpen: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
+  tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  className: PropTypes.node,
+  navbar: PropTypes.bool,
+  cssModule: PropTypes.object,
+  innerRef: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   donors: state.donors
