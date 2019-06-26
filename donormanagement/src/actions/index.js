@@ -1,11 +1,11 @@
 import axios from 'axios';
-import axiosWithAuth from '../utils/axiosWithAuth';
+import {axiosWithAuth} from '../utils/axiosWithAuth';
 
 export const ADD_USER = "ADD_USER";
 export const ADD_USER_FAILURE = "ADD_USER_FAILURE";
 
 export const addUser = newUser => dispatch => {
-  axiosWithAuth()
+  return axiosWithAuth()
       .post("https://donor-manage-bw.herokuapp.com/api/user/new", newUser)
       .then(res => {
         dispatch({ type: ADD_USER, payload: res.data });
@@ -19,7 +19,7 @@ export const ADD_DONOR = "ADD_DONOR";
 export const ADD_DONOR_FAILURE = "ADD_DONOR_FAILURE";
   
 export const addDonor = newDonor => dispatch => {
-  axiosWithAuth()
+  return axiosWithAuth()
     .post("https://donor-manage-bw.herokuapp.com/api/donor/add", newDonor)
     .then(res => {
       dispatch({ type: ADD_DONOR, payload: res.data });
