@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions/index';
-import Loader from 'react-loader-spinner';
+import Loader from 'react-loader-spinner'
 
 import './Login.css';
 
