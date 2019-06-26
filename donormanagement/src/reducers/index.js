@@ -1,6 +1,9 @@
 import {
     ADD_USER,
-    ADD_USER_FAILURE
+    ADD_USER_FAILURE,
+    LOGIN_START,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE
   } from "../actions/index";
   
   const initialState = {
@@ -22,7 +25,25 @@ import {
               ...state,
               error: action.payload
             };
-        default:
+            case LOGIN_START:
+              return {
+                ...state,
+                error: '',
+                loggingIn: true
+              };
+            case LOGIN_SUCCESS:
+              return {
+                ...state,
+                loggingIn: false,
+                error: ''
+              };
+            case LOGIN_FAILURE:
+              return {
+                ...state,
+                loggingIn: false,
+                error: action.payload
+              };
+              default:
             return state;
     }
   };
