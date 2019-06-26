@@ -16,6 +16,7 @@ export const addUser = newUser => dispatch => {
       });
   };
 
+
 export const ADD_DONOR = "ADD_DONOR";
 export const ADD_DONOR_FAILURE = "ADD_DONOR_FAILURE";
   
@@ -31,9 +32,11 @@ export const addDonor = newDonor => dispatch => {
     });
 };
 
+
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
 export const login = creds => dispatch => {
   dispatch({ type: LOGIN_START });
   return axios    
@@ -49,3 +52,21 @@ export const login = creds => dispatch => {
     })
     .catch(err => console.log('ERROR', err));
   }
+
+
+export const FETCH_DONORS_START = "FETCH_DONORS_START";
+export const FETCH_DONORS_SUCCESS = "FETCH_DONORS_SUCCESS";
+export const FETCH_DONORS_FAILURE = "FETCH_DONORS_FAILURE";
+
+export const fetchDonors = () => dispatch => {
+    dispatch({ type: FETCH_DONORS_START });
+    return axiosWithAuth()
+      .get("/api/donors/all")
+      .then(res => {
+        dispatch({ type: FETCH_DONORS_SUCCESS, payload: res.data });
+        console.log(res, 'RESULTS')
+      })
+      .catch(err => {
+        dispatch({ type: FETCH_DONORS_FAILURE, payload: err });
+      });
+  };

@@ -13,8 +13,16 @@ import {
 } from 'reactstrap';
 
 import './DonationsPage.css'
+import { fetchDonors } from "../actions/index"
+
 
 class DonationsPage extends React.Component {
+  state = {
+    name: '',
+    address: '',
+    email: '',
+    donations: []
+  }
     render() {       
         return (
             <div>
@@ -34,22 +42,34 @@ class DonationsPage extends React.Component {
                       </Nav>
                     </Navbar>
                 </div>
-                <div className="donors">
-                <Button color="primary" id="toggler" style={{ margin: '1rem' }}>
-                    Donors Name
-                </Button>
-                <UncontrolledCollapse toggler="#toggler">
-                    <Card>
-                        <CardBody>
-                            donors creds
-                        </CardBody>
-                    </Card>
-                </UncontrolledCollapse>
-                <Button size="sm">Edit Donor</Button>                  
+                {this.props.donors.map(donor => (
+                <div className="card">
+                  <Button color="primary" id="toggler" style={{ margin: '1rem' }}>
+                  <h1>{donor.dname}</h1>
+                  </Button>
+                  <UncontrolledCollapse toggler="#toggler">
+                      <Card>
+                          <CardBody>
+                          <h1>{donor.dname}</h1>
+                          <h3>{donor.demail}</h3>
+                          <h3>{donor.daddress}</h3>
+                          <h3>{donor.ddonations}</h3>
+                          </CardBody>
+                      </Card>
+                  </UncontrolledCollapse>
+                  <Button size="sm">Edit Donor</Button>
                 </div>
+                ))}
             </div>
         )
     }
+    componentDidMount() {
+      this.props.fetchDonors();
+    }
 }
 
-export default connect(null, {  })(DonationsPage)
+const mapStateToProps = state => ({
+  donors: state.donors
+})
+
+export default connect(mapStateToProps, { fetchDonors })(DonationsPage)

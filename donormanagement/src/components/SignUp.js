@@ -1,7 +1,7 @@
 import {
     Container, Col, Form,
     FormGroup, Label, Input,
-    Button,
+    Button, Navbar, NavbarBrand, NavItem, NavLink, Nav
   } from 'reactstrap';
 
   import './SignUp.css'
@@ -29,6 +29,22 @@ import {
         // const { error } = this.state;
       return (
         <Container className="SignUp">
+          <div>
+            <Navbar color="light" light expand="md">
+              <NavbarBrand href="/">Donor Management</NavbarBrand>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="/signup">Signup</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/login">Login</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="#">Add Donor</NavLink>
+                </NavItem>
+              </Nav>
+            </Navbar>
+          </div>
           <h2>Sign Up</h2>
           <Form className="form" onSubmit={this.handleSubmit}>
           <Col>
