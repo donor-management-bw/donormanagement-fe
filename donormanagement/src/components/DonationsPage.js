@@ -37,7 +37,7 @@ class DonationsPage extends React.Component {
                           <NavLink href="/login">Login</NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink href="#">Add Donor</NavLink>
+                          <NavLink href="/donationform">Add Donor</NavLink>
                         </NavItem>
                       </Nav>
                     </Navbar>

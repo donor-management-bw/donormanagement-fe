@@ -5,9 +5,10 @@ export const ADD_USER = "ADD_USER";
 export const ADD_USER_FAILURE = "ADD_USER_FAILURE";
 
 export const addUser = newUser => dispatch => {
-  return axiosWithAuth()
+  axios
       .post("https://donor-manage-bw.herokuapp.com/api/user/new", newUser)
       .then(res => {
+        console.log(res)
         dispatch({ type: ADD_USER, payload: res.data });
       })
       .catch(err => {
@@ -21,8 +22,9 @@ export const ADD_DONOR_FAILURE = "ADD_DONOR_FAILURE";
   
 export const addDonor = newDonor => dispatch => {
   return axiosWithAuth()
-    .post("https://donor-manage-bw.herokuapp.com/api/donor/add", newDonor)
+    .post("/api/donors/add", newDonor)
     .then(res => {
+      console.log(res)
       dispatch({ type: ADD_DONOR, payload: res.data });
     })
     .catch(err => {
