@@ -30,7 +30,7 @@ import {
         // const { error } = this.state;
       return (
         <Container className="SignUp">
-        <div>
+          <div>
             <Navbar color="light" light expand="md">
               <NavbarBrand href="/">Donor Management</NavbarBrand>
               <Nav className="ml-auto" navbar>

@@ -1,5 +1,21 @@
 .App {
+  height: 960px;
+  background-color: #C7E4B5;
   text-align: center;
+}
+
+h1 {
+  color: #ffffff;  
+  width: 150px;
+  text-align: center;
+  font-size: 45px;
+  width: 100%;
+}
+
+.header-div {
+  display: block;
+  align-content: center;
+  
 }
 
 .App-logo {
@@ -22,6 +38,18 @@
 .App-link {
   color: #61dafb;
 }
+
+.nav-bar { 
+  align-content: right;
+  background-color: #C7E4B5;
+  
+  padding-top: 1px;
+  
+ }
+ .link-div {
+     display: inline-block;
+     text-align: center;
+ }
 
 @keyframes App-logo-spin {
   from {
