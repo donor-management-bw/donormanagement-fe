@@ -3,7 +3,9 @@ import {
     ADD_USER_FAILURE,
     LOGIN_START,
     LOGIN_SUCCESS,
-    LOGIN_FAILURE
+    LOGIN_FAILURE,
+    ADD_DONOR,
+    ADD_DONOR_FAILURE
   } from "../actions/index";
   
   const initialState = {
@@ -11,7 +13,8 @@ import {
     signingUp: false,
     error: null,
     loading: true,
-    token: localStorage.getItem("token")
+    token: localStorage.getItem("token"),
+    donors: []
   };
   export const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -41,6 +44,17 @@ import {
               return {
                 ...state,
                 loggingIn: false,
+                error: action.payload
+              };
+            case ADD_DONOR:
+              return {
+                ...state,                
+                error: '',
+                donors: [...state.donors, action.payload]
+              };
+            case ADD_DONOR_FAILURE:
+              return {
+                ...state,                
                 error: action.payload
               };
               default:

@@ -3,7 +3,7 @@ import {
     FormGroup, Label, Input,
     Button,
   } from 'reactstrap';
-
+  import swal from 'sweetalert';
   import './SignUp.css'
 
   import Component from 'react-dom'
@@ -21,9 +21,10 @@ import {
                 name: '',
                 address: '',
                 email: '',
+                phone: '',
                 error: {},
                 isLoading: false
-        };
+        };        
     }
 
     render() {
@@ -105,13 +106,25 @@ import {
 
       handleSubmit = e => {
         e.preventDefault();
-        const newDonor= {
-         donorname: this.state.donorname,
-         donation: this.state.donation
-        };
-        console.log(newDonor)
+        let addedDonor =this.state.name;
+
+        const newDonor = {
+          dname: this.state.name,
+          daddress: this.state.address,
+          demail: this.state.email,
+          dphone: this.state.phone
+          //  donation: this.state.donation <----donotions have to be added after the creation of the donor itself so we have the ID created
+        };        
         this.props.addDonor(newDonor)
-    
+        this.setState({
+          name: '',
+          address: '',
+          email: '',
+          phone: '',
+          error: {},
+          isLoading: false
+        })
+        swal("Donor Added!", `${addedDonor} was added to the donor list`, "success");
       }
   }
 
@@ -119,7 +132,7 @@ import {
     addDonor: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
-  Donors: state.Donors,
+  donors: state.donors,
 });
 
 export default connect(
