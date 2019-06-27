@@ -5,13 +5,14 @@ import {
   } from 'reactstrap';
 
   import './SignUp.css'
-
+  import swal from 'sweetalert';
   import Component from 'react-dom'
   import React from 'react'
   import PropTypes from 'prop-types';
   import axios from 'axios'
   import { connect } from "react-redux";
   import { addUser } from '../actions/index'
+  import Login from './Login'
   
   class SignupForm extends React.Component {
     constructor(props) {
@@ -85,11 +86,8 @@ import {
          password: this.state.password,
         };
         console.log(newUser)
-        this.props.addUser(newUser).then(res => {
-          if (res) {
-            this.props.history.push('/login');
-          }
-        });
+        this.props.addUser(newUser)
+        swal("User!", `${newUser.username} was signed up`, "success");
     
       }
   }
