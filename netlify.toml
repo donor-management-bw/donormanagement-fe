@@ -1,0 +1,4 @@
+[build]
+base="donormanagement"
+publish="donormanagement/build/"
+command="yarn build"
