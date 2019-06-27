@@ -11,6 +11,7 @@ import {
 
 import {connect} from 'react-redux'
 import {addDonation} from '../actions/index'
+import "./DonorCard.css"
 
 class DonorCard extends React.Component {
     constructor(props){
@@ -70,9 +71,11 @@ class DonorCard extends React.Component {
              Adress: <h5>{this.props.donor.daddress}</h5>
              {this.props.donor.donationlist.map(obj => (
              <div>
+               <Card>
                  Amount: <h5>{obj.amount}</h5>
                  Note: <h5>{obj.note}</h5>
                  Date: <h5>{obj.donationdate}</h5>
+               </Card>
              </div>             
              ))}
            </CardBody>
@@ -82,7 +85,8 @@ class DonorCard extends React.Component {
          <InputGroupAddon addonType="prepend" >
              <Button onClick={this.addDonation}>ADD Donation</Button>
         </InputGroupAddon>
-         <Input name="amount" value={this.state.amount} onChange={this.handleChanges}/>
+         <Input name="amount" placeholder="Donation Amount" value={this.state.amount} onChange={this.handleChanges}/>
+         <Input name="note" placeholder="Note" value={this.state.note} onChange={this.handleChanges}/>
        </InputGroup>
    <Button size="sm" color="danger" onClick={this.toggle} style={{ marginBottom: '1.3rem' }}>Delete Donor</Button>
  </div>
