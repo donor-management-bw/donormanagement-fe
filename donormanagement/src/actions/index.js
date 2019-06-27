@@ -32,22 +32,6 @@ export const addDonor = newDonor => dispatch => {
     });
 };
 
-
-// export const DELETE_DONOR = "DELETE_DONOR";
-// export const DELETE_DONOR_FAILURE = "DELETE_DONOR_FAILURE";
-  
-// export const deleteDonor = donorId => dispatch => {
-//   return axiosWithAuth()
-//     .delete("/api/donor/delete/{donorid}", donorId)
-//     .then(res => {
-//       console.log(res)
-//       dispatch({ type: DELETE_DONOR, payload: res.data });
-//     })
-//     .catch(err => {
-//       dispatch({ type: DELETE_DONOR_FAILURE, payload: err.response });
-//     });
-// };
-
 export const ADD_DONATION = "ADD_DONATION";
 export const ADD_DONATION_FAILURE = "ADD_DONATION_FAILURE";
   

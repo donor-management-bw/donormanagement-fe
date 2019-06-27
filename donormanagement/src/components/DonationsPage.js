@@ -33,22 +33,6 @@ class DonationsPage extends React.Component {
     render() {       
         return (
             <div>
-                <div>
-                    <Navbar color="light" light expand="md">
-                      <NavbarBrand href="/">Donor Management</NavbarBrand>
-                      <Nav className="ml-auto" navbar>
-                        <NavItem>
-                          <NavLink href="/signup">Signup</NavLink>
-                        </NavItem>
-                        <NavItem>
-                          <NavLink href="/login">Login</NavLink>
-                        </NavItem>
-                        <NavItem>
-                          <NavLink href="/donationform">Add Donor</NavLink>
-                        </NavItem>
-                      </Nav>
-                    </Navbar>
-                </div>
                 {this.props.donors.map(donor => (
                  <DonorCard toggle={this.toggle}
                             donor={donor}
