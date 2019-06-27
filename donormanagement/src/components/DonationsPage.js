@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 
 import './DonationsPage.css'
-import { fetchDonors } from "../actions/index"
+import { fetchDonors, addDonation } from "../actions/index"
 import { Transition } from 'react-transition-group';
 import PropTypes from 'prop-types'
 import DonorCard from './DonorCard';
@@ -26,6 +26,9 @@ class DonationsPage extends React.Component {
       email: '',
       donations: [],
     }
+  }
+  donationAdd = (newDonation) => {
+    this.props.addDonation(newDonation);
   }
     render() {       
         return (
@@ -50,7 +53,7 @@ class DonationsPage extends React.Component {
                  <DonorCard toggle={this.toggle}
                             donor={donor}
                             collapse={this.state.collapse}
-                            addDonation={this.addDonation}/>
+                            donationAdd={this.donationAdd}/>
                 ))}
             </div>
         )
@@ -75,7 +78,7 @@ Collapse.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  donors: state.donors
+  donors: state.donors  
 })
 
-export default connect(mapStateToProps, { fetchDonors })(DonationsPage)
+export default connect(mapStateToProps, { fetchDonors, addDonation })(DonationsPage)

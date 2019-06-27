@@ -39,7 +39,7 @@ export const addDonation = newDonation => dispatch => {
   return axiosWithAuth()
     .post("/api/donation/add", newDonation)
     .then(res => {
-      console.log(res, 'RESUKTSSSSS')
+      console.log(res)      
       dispatch({ type: ADD_DONATION, payload: res.data });
     })
     .catch(err => {
@@ -83,5 +83,20 @@ export const fetchDonors = () => dispatch => {
       })
       .catch(err => {
         dispatch({ type: FETCH_DONORS_FAILURE, payload: err });
+      });
+  };
+  export const DELETE_DONOR_START = 'DELETE_DONOR_START';
+  export const DELETE_DONOR_SUCCESS = 'DELETE_DONOR_SUCCESS';
+  export const DELETE_DONOR_FAILURE = 'DELETE_DONOR_FAILURE';
+  export const deleteDonor = id => dispatch => {
+    dispatch({ type: DELETE_DONOR_START });
+    return axiosWithAuth()
+      .delete(`/api/donor/delete/${id}`)
+      .then(res => { 
+        console.log(res)             
+        dispatch({ type: DELETE_DONOR_SUCCESS, payload: id });
+      })
+      .catch(err => {      
+        dispatch({ type: DELETE_DONOR_FAILURE, payload: err });
       });
   };
