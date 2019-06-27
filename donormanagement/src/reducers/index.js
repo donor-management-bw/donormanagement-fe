@@ -11,6 +11,9 @@ import {
     FETCH_DONORS_FAILURE,
     ADD_DONATION,
     ADD_DONATION_FAILURE,
+    DELETE_DONOR_START,
+    DELETE_DONOR_SUCCESS,
+    DELETE_DONOR_FAILURE
   } from "../actions/index";
   
   const initialState = {
@@ -19,6 +22,7 @@ import {
     signingUp: false,
     error: null,
     loading: true,
+    deleting: false,
     token: localStorage.getItem("token")
   };
   export const reducer = (state = initialState, action) => {
@@ -82,16 +86,37 @@ import {
                 error: action.payload
               };
             case ADD_DONATION:
+                state.donors[action.payload.donor.donorid].donationlist = action.payload;
               return {
                 ...state,
-                donations: action.payload
+                donors: state.donors                
               };
             case ADD_DONATION_FAILURE:
               return {
                 ...state,
                 error: action.payload
               };
-            default:
+              case DELETE_DONOR_START:
+                return {
+                  ...state,
+                  deleting: true,
+                  error: ''
+                };
+              case DELETE_DONOR_SUCCESS:
+                let newDonors = state.donors.filter(e => e.donorid !== action.payload);
+                return {
+                  ...state,
+                  error: '',
+                  deleting: false,                  
+                  donors: newDonors
+                };
+              case DELETE_DONOR_FAILURE:
+                return {
+                  ...state,
+                  deleting: false,
+                  error: action.payload
+                };
+                    default:
             return state;
     }
   };
