@@ -9,6 +9,8 @@ import {
     FETCH_DONORS_START,
     FETCH_DONORS_SUCCESS,
     FETCH_DONORS_FAILURE,
+    ADD_DONATION,
+    ADD_DONATION_FAILURE,
   } from "../actions/index";
   
   const initialState = {
@@ -17,8 +19,7 @@ import {
     signingUp: false,
     error: null,
     loading: true,
-    token: localStorage.getItem("token"),
-    donors: []
+    token: localStorage.getItem("token")
   };
   export const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -78,6 +79,16 @@ import {
               return {
                 ...state,
                 loading: false,
+                error: action.payload
+              };
+            case ADD_DONATION:
+              return {
+                ...state,
+                donations: action.payload
+              };
+            case ADD_DONATION_FAILURE:
+              return {
+                ...state,
                 error: action.payload
               };
             default:

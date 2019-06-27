@@ -7,13 +7,7 @@ import {
     Nav,
     NavItem,
     NavLink,
-    UncontrolledCollapse,
-    Card,
-    CardBody,
-    Collapse,
-    InputGroup,
-    InputGroupAddon,
-    Input
+    Collapse
 } from 'reactstrap';
 
 import './DonationsPage.css'
@@ -55,7 +49,8 @@ class DonationsPage extends React.Component {
                 {this.props.donors.map(donor => (
                  <DonorCard toggle={this.toggle}
                             donor={donor}
-                            collapse={this.state.collapse}/>
+                            collapse={this.state.collapse}
+                            addDonation={this.addDonation}/>
                 ))}
             </div>
         )

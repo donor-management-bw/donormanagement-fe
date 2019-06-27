@@ -32,6 +32,21 @@ export const addDonor = newDonor => dispatch => {
     });
 };
 
+export const ADD_DONATION = "ADD_DONATION";
+export const ADD_DONATION_FAILURE = "ADD_DONATION_FAILURE";
+  
+export const addDonation = newDonation => dispatch => {
+  return axiosWithAuth()
+    .post("/api/donation/add", newDonation)
+    .then(res => {
+      console.log(res, 'RESUKTSSSSS')
+      dispatch({ type: ADD_DONATION, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: ADD_DONATION_FAILURE, payload: err.response });
+    });
+};
+
 
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
