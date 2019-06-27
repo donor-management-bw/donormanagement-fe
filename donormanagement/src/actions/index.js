@@ -54,9 +54,8 @@ export const ADD_DONATION_FAILURE = "ADD_DONATION_FAILURE";
 export const addDonation = newDonation => dispatch => {
   return axiosWithAuth()
     .post("/api/donation/add", newDonation)
-    .then(res => {
-      console.log(res)      
-      dispatch({ type: ADD_DONATION, payload: res.data });
+    .then(() => {
+      fetchDonors()
     })
     .catch(err => {
       dispatch({ type: ADD_DONATION_FAILURE, payload: err.response });
@@ -95,7 +94,7 @@ export const fetchDonors = () => dispatch => {
       .get("/api/donors/all")
       .then(res => {
         dispatch({ type: FETCH_DONORS_SUCCESS, payload: res.data });
-        console.log(res, 'RESULTS')
+        console.log(res, 'THIS IS FETCH DONORS RESULTS')
       })
       .catch(err => {
         dispatch({ type: FETCH_DONORS_FAILURE, payload: err });

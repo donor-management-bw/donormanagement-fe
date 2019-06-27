@@ -75,7 +75,7 @@ import {
             case FETCH_DONORS_SUCCESS:
               return {
                 ...state,
-                donors: [...state.donors, ...action.payload],
+                donors: action.payload,
                 loading: false,
                 error: null
               };
