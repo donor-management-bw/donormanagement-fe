@@ -2,6 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions/index';
 import Loader from 'react-loader-spinner'
+import {
+  Navbar,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Collapse
+} from 'reactstrap';
 
 import './Login.css';
 
@@ -35,6 +43,22 @@ class Login extends React.Component {
     render() {
         return (
             <div className='login-main'>
+              <div>
+                <Navbar color="light" light expand="md">
+                  <NavbarBrand href="/">Donor Management</NavbarBrand>
+                  <Nav className="ml-auto" navbar>
+                    <NavItem>
+                      <NavLink href="/signup">Signup</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink href="/login">Login</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink href="#">Add Donor</NavLink>
+                    </NavItem>
+                  </Nav>
+                </Navbar>
+                </div>
                 <Form className='form-login' onSubmit={this.login}>
                   <h1>Welcome, sign in!</h1>
                 <Input className='input-username'
