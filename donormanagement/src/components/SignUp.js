@@ -101,7 +101,11 @@ import {
          password: this.state.password,
         };
         console.log(newUser)
-        this.props.addUser(newUser)
+        this.props.addUser(newUser).then(res => {
+          if (res) {
+            this.props.history.push('/login');
+          }
+        });
     
       }
   }
