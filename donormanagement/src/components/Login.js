@@ -46,7 +46,7 @@ class Login extends React.Component {
         return (
             <div className='login-main'>
                 <Form className='form-login' onSubmit={this.login}>
-                  <h1>Welcome, sign in!</h1>
+                  <h2 className='h2-signin'>Welcome sign in!</h2>
                 <Input className='input-username'
                     placeholder='username...'                    
                     type="text"

@@ -1,14 +1,23 @@
 .form-login {
-    display: flex;
+    display: inline-block;
+    /* display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #C7E4B5;
+    background-color: #C7E4B5;*/
     height: 200px;
-    width: 500px;
+    width: 100%; 
 }
 .login-main {
-    display: inline-block;
-    background-color: #C7E4B5;
+    text-align: center;
+    width: 50%;
+    background: #fff;
+    margin-left: 25%;
+    border-radius: 10px;
+    /* overflow: hidden; */
+    
+}
+.h2-signin {
+    color: black;
 }
 .input-username {
     background-color: #FFFFFF;
@@ -16,14 +25,14 @@
     width: 70%;
     height: 10%;
     margin-bottom: 25px;
-    margin-left: 12%;
+    margin-left: 18%;
 }
 .input-password {
     background-color: #FFFFFF;
     /* text-align: center; */
     width: 70%;
     height: 10%;
-    margin-left: 12%;
+    margin-left: 18%;
 }
 
 .login-button {
@@ -33,7 +42,7 @@
     width: 100px;
     height: 35px;
     margin-top: 10px;
-    margin-left: 37%;
+    /* margin-left: 37%; */
 }
 
 hr {
