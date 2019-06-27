@@ -12,6 +12,7 @@ import {
 import swal from 'sweetalert';
 import {connect} from 'react-redux'
 import {deleteDonor} from '../actions/index'
+
 import "./DonorCard.css"
 
 class DonorCard extends React.Component {
