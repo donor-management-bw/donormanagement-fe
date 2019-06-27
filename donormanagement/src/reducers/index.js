@@ -11,6 +11,8 @@ import {
     FETCH_DONORS_FAILURE,
     ADD_DONATION,
     ADD_DONATION_FAILURE,
+    DELETE_DONOR,
+    DELETE_DONOR_FAILURE
   } from "../actions/index";
   
   const initialState = {
@@ -91,6 +93,17 @@ import {
                 ...state,
                 error: action.payload
               };
+            case DELETE_DONOR:
+              return {
+                ...state,                
+                error: '',
+                donors: [...state.donors, action.payload]
+              };
+            case DELETE_DONOR_FAILURE:
+              return {
+                ...state,                
+                error: action.payload
+              };              
             default:
             return state;
     }

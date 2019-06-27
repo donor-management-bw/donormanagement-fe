@@ -9,8 +9,10 @@ import {
     Input
 } from 'reactstrap';
 
+import "./DonorCard.css"
+
 import {connect} from 'react-redux'
-import {addDonation} from '../actions/index'
+import {addDonation, deleteDonor} from '../actions/index'
 
 class DonorCard extends React.Component {
     constructor(props){
@@ -57,6 +59,12 @@ class DonorCard extends React.Component {
         this.props.addDonation(newDonation);
         };
 
+      deleteDonor = e => {
+          e.preventDefault();
+          const donorid = {donor:{donorid:this.props.donor.donorid}}
+          this.props.deleteDonor(donorid)
+      }
+
    render(){ 
        console.log(this.props.donor, "this is opur donor")
   return (
@@ -70,9 +78,11 @@ class DonorCard extends React.Component {
              Adress: <h5>{this.props.donor.daddress}</h5>
              {this.props.donor.donationlist.map(obj => (
              <div>
+                <Card>
                  Amount: <h5>{obj.amount}</h5>
                  Note: <h5>{obj.note}</h5>
                  Date: <h5>{obj.donationdate}</h5>
+                </Card>
              </div>             
              ))}
            </CardBody>
@@ -82,9 +92,10 @@ class DonorCard extends React.Component {
          <InputGroupAddon addonType="prepend" >
              <Button onClick={this.addDonation}>ADD Donation</Button>
         </InputGroupAddon>
-         <Input name="amount" value={this.state.amount} onChange={this.handleChanges}/>
+         <Input name="amount" placeholder="Donation Amount" value={this.state.amount} onChange={this.handleChanges}/>
+         <Input name="note" placeholder="Leave A Note" value={this.state.note} onChange={this.handleChanges}/>
        </InputGroup>
-   <Button size="sm" color="danger" onClick={this.toggle} style={{ marginBottom: '1.3rem' }}>Delete Donor</Button>
+   <Button size="sm" color="danger" onClick={this.deleteDonor} name="donor" value={this.state.donor} style={{ marginBottom: '1.3rem' }}>Delete Donor</Button>
  </div>
   );
 }
@@ -93,5 +104,5 @@ const mapStateToProps = state => ({
     donors: state.donors
   })
   
-  export default connect(mapStateToProps, { addDonation })(DonorCard)
+  export default connect(mapStateToProps, { addDonation, deleteDonor })(DonorCard)
 
