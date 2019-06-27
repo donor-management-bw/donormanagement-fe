@@ -11,7 +11,7 @@ import {
 
 import swal from 'sweetalert';
 import {connect} from 'react-redux'
-import {deleteDonor} from '../actions/index'
+import {deleteDonor, fetchDonors, addDonation} from '../actions/index'
 
 import "./DonorCard.css"
 
@@ -65,7 +65,10 @@ class DonorCard extends React.Component {
             
 
         };
-        this.props.donationAdd(newDonation);
+        this.props.addDonation(newDonation).then(() => {
+          this.props.fetchDonors()
+          console.log('this is working ')
+        });
         };
 
    render(){        
@@ -106,4 +109,4 @@ const mapStateToProps = state => ({
     donors: state.donors
   })
   
-  export default connect(mapStateToProps, { deleteDonor })(DonorCard)
+  export default connect(mapStateToProps, { deleteDonor, fetchDonors, addDonation })(DonorCard)
