@@ -1,12 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {
-    Button,
-    Navbar,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
     Collapse
 } from 'reactstrap';
 
@@ -33,6 +27,9 @@ class DonationsPage extends React.Component {
     render() {       
         return (
             <div>
+                  <div className="header-title"> 
+                    Current Donor List
+                  </div>
                 {this.props.donors.map(donor => (
                  <DonorCard toggle={this.toggle}
                             donor={donor}
