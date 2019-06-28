@@ -1,41 +1,50 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute"
 
 import Login from './components/Login';
 import SignupPage from './components/SignUpPage'
 import DonationsPage from './components/DonationsPage'
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav
-} from 'reactstrap';
 
 
 import "./App.css";
 import AddDonorPage from "./components/AddDonorPage";
 
 function App() {
+  let loggedIn = localStorage.getItem("token");
+
+
+
   return (
     <div className="App">
-        <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Donor Management</NavbarBrand>
-        <Nav className="ml-auto" navbar>
-          <NavItem>
-            <NavLink href="/signup">Signup</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/login">Login</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/donationform">Add Donor</NavLink>
-          </NavItem>
-        </Nav>
-      </Navbar>
+      <div className="navbar">
+        <div >
+          <Link className="logo" to="/">Donor Transparency</Link>
+        </div>
+        <div className="navitems">
+          {loggedIn ? 
+          <>  
+            <Link className="singlenavitem" to="/donationform">Add Donor</Link>
+            <Link>Logout</Link>
+          </>
+          :
+          <>
+            <Link className="navitem" to="/signup">Signup</Link>
+            <Link className="navitem" to="/login">Login</Link>
+          </>}
+          
 
-      <ProtectedRoute path="/donationform" component={AddDonorPage} />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={SignupPage} />
-      <Route exact path="/" component={DonationsPage} />  
-      {/* <PrivateRoute path="/" component={} />  */}
+        </div>
+      </div>
+      <div className="container">
+
+        <ProtectedRoute path="/donationform" component={AddDonorPage} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignupPage} />
+        <Route exact path="/" component={DonationsPage} />  
+        {/* <PrivateRoute path="/" component={} />  */}
+      </div>
     </div>
   );
 }

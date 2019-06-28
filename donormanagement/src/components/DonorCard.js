@@ -18,7 +18,8 @@ import "./DonorCard.css"
 class DonorCard extends React.Component {
     constructor(props){
        super(props);
-       this.state = {collapse: false,         
+       this.state = {collapse: false,
+                     addDonationForm: false,         
                      amount: null,
                      note: "",
                      donor: {donorid: this.props.donor.donorid}
@@ -27,6 +28,10 @@ class DonorCard extends React.Component {
 
     toggle = () => {
         this.setState(state => ({ collapse: !state.collapse }));
+      }
+    
+      toggle2 = () => {
+        this.setState(state => ({ addDonationForm: !state.addDonationForm }));
       }
 
     handleChanges = e => {
@@ -65,42 +70,76 @@ class DonorCard extends React.Component {
             
 
         };
-        this.props.addDonation(newDonation).then(() => {
-          this.props.fetchDonors()
-          console.log('this is working ')
-        });
+        if(this.state.amount && this.state.note){
+            this.props.addDonation(newDonation).then(() => {
+              this.props.fetchDonors()
+              this.setState({
+                addDonationForm: false,
+                amount: '',
+                note: ""
+              })
+              console.log('this is working ')
+            });
+          }
         };
 
    render(){        
   return (
     <div className="card">
-    <Button  color="success" onClick={this.toggle} style={{ marginBottom: '1rem', backgroundColor: '#C7E4B5', color: '#3FB6E9' }}><h1>{this.props.donor.dname}</h1></Button>
+    <Button onClick={this.toggle} style={{ backgroundColor: '#C7E4B5' }}>
+      <h1>{this.props.donor.dname}</h1>
+      </Button>
        <Collapse isOpen={this.state.collapse}>
+         <div className="button-container">
+          <Button size="md" color="success" onClick={this.toggle2} style={{ marginBottom: '', marginRight: '1rem'}}>Add Donation</Button>
+          <Button size="sm" outline color="danger" onClick={this.deleteDonor} style={{ marginBottom: '' }}>X Delete</Button>
+        </div>
+          <Collapse isOpen={this.state.addDonationForm}>
+            <InputGroup style={{ marginLeft: '1rem', marginRight: '1rem', width: '94%' }}>
+              <Input name="amount" placeholder="Donation Amount" value={this.state.amount} onChange={this.handleChanges}/>
+              <Input name="note" placeholder="Note" value={this.state.note} onChange={this.handleChanges}/>
+              <InputGroupAddon addonType="append" >
+                  <Button onClick={this.addDonation}>Submit</Button>
+              </InputGroupAddon>
+            </InputGroup>
+          </Collapse>
          <Card>
-           <CardBody>
-             Name: <h5>{this.props.donor.dname}</h5>
-             Email: <h5>{this.props.donor.demail}</h5>
-             Address: <h5>{this.props.donor.daddress}</h5>
+           <div className="list">
+             <div className="details">
+              <div className="leftdiv">
+                  <h5>Name:</h5>
+                  <h5> Email: </h5>
+                  <h5> Address:</h5></div>
+              <div className="rightdiv">
+                  <h5> {this.props.donor.dname}</h5>
+                  <h5>{this.props.donor.demail}</h5>
+                  <h5> {this.props.donor.daddress}</h5>
+              </div>
+             </div>
+
+
+            <div className="donationtable">
+              <h5>Donations: </h5>
+              <div className="tableheader">
+                <span className="date">Date</span>
+                <span className="amt">Amount</span>
+                <span className="note">Note</span>
+              </div>
+
              {this.props.donor.donationlist.map(obj => (
-             <div>
-               <Card>
-                 Amount: <h5>{obj.amount}</h5>
-                 Note: <h5>{obj.note}</h5>
-                 Date: <h5>{obj.donationdate}</h5>
-               </Card>
-             </div>             
+                <div className="tabledata">
+                    <span className="date">{obj.donationdate}</span>
+                    <span className="amt">${obj.amount}</span>
+                    <span className="note">{obj.note}</span>
+
+                </div>             
              ))}
-           </CardBody>
+             </div>
+           </div>
          </Card>
        </Collapse>
-       <InputGroup>
-         <InputGroupAddon addonType="prepend" >
-             <Button onClick={this.addDonation}>ADD Donation</Button>
-        </InputGroupAddon>
-         <Input name="amount" placeholder="Donation Amount" value={this.state.amount} onChange={this.handleChanges}/>
-         <Input name="note" placeholder="Note" value={this.state.note} onChange={this.handleChanges}/>
-       </InputGroup>
-   <Button size="sm" outline color="danger" onClick={this.deleteDonor} style={{ marginBottom: '1.3rem' }}>Delete Donor</Button>
+
+   
  </div>
   );
 }

@@ -32,7 +32,7 @@ import {
         // const { error } = this.state;
       return (
         <Container className="SignUp">
-          <h2>Donation Form</h2>
+          <h2>Add Donor</h2>
           <Form className="form" onSubmit={this.handleSubmit}>
           <Col>
               <FormGroup>
@@ -116,16 +116,21 @@ import {
           dphone: this.state.phone
           //  donation: this.state.donation <----donotions have to be added after the creation of the donor itself so we have the ID created
         };        
-        this.props.addDonor(newDonor)
-        this.setState({
-          name: '',
-          address: '',
-          email: '',
-          phone: '',
-          error: {},
-          isLoading: false
-        })
-        swal("Donor Added!", `${addedDonor} was added to the donor list`, "success");
+        this.props.addDonor(newDonor).then(res => {
+            this.setState({
+              name: '',
+              address: '',
+              email: '',
+              phone: '',
+              error: {},
+              isLoading: false
+            })
+            swal("Donor Added!", `${addedDonor} was added to the donor list`, "success");
+            this.props.history.push('/');
+          
+        });
+
+        
       }
   }
 
