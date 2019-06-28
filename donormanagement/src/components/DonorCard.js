@@ -8,7 +8,7 @@ import {
     InputGroupAddon,
     Input
 } from 'reactstrap';
-
+import moment from 'moment';
 import swal from 'sweetalert';
 import {connect} from 'react-redux'
 import {deleteDonor, fetchDonors, addDonation} from '../actions/index'
@@ -53,7 +53,7 @@ class DonorCard extends React.Component {
       }
 
       addDonation = e => {
-        e.preventDefault();
+        e.preventDefault();        
         const newDonation = {
             // amount: this.props.donor.donationlist.amount,
             // note: this.props.donor.note,
@@ -126,9 +126,9 @@ class DonorCard extends React.Component {
                 <span className="note">Note</span>
               </div>
 
-             {this.props.donor.donationlist.map(obj => (
+             {this.props.donor.donationlist.map(obj => (              
                 <div className="tabledata">
-                    <span className="date">{obj.donationdate}</span>
+                    <span className="date">{moment(obj.donationdate).format("DD MMM YYYY hh:mm a")}</span>                    
                     <span className="amt">${obj.amount}</span>
                     <span className="note">{obj.note}</span>
 

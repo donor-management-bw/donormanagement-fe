@@ -15,7 +15,7 @@ import {
     DELETE_DONOR_SUCCESS,
     DELETE_DONOR_FAILURE
   } from "../actions/index";
-  
+
   const initialState = {
     users: [],
     donors:[],
@@ -85,7 +85,7 @@ import {
                 loading: false,
                 error: action.payload
               };
-            case ADD_DONATION:
+            case ADD_DONATION:                              
                 state.donors[action.payload.donor.donorid].donationlist = action.payload;
               return {
                 ...state,
